@@ -70,7 +70,7 @@ long HashTable::inserirNoOverflow(const Artigo& artigo, int hashIndex, Bucket& b
     return pos;
 }
 
-Artigo* HashTable::buscarArtigo(long address, int id) {
+Artigo* HashTable::buscarArtigo(long address, int id = -1) {
     std::fstream hashFile("hash_table.dat", std::ios::in | std::ios::binary);
     if (!hashFile) {
         std::cerr << "Erro ao abrir o arquivo da tabela hash." << std::endl;
@@ -84,7 +84,7 @@ Artigo* HashTable::buscarArtigo(long address, int id) {
     for (int i = 0; i < BUCKET_SIZE; ++i) {
         Bloco& bloco = bucket.blocos[i];
         for (int j = 0; j < bloco.count; ++j) {
-            if (bloco.artigos[j].id == id) {
+            if (id == -1 || bloco.artigos[j].id == id) {  // Verifica o ID somente se for relevante
                 Artigo* foundArtigo = new Artigo(bloco.artigos[j]);
                 hashFile.close();
                 return foundArtigo;

@@ -36,7 +36,7 @@ public:
     long inserirArtigo(const Artigo& artigo);
     Artigo* buscarArtigo(long address, int id);
 
-private:
+public:
     int hashFunction(int id);
     long inserirNoOverflow(const Artigo& artigo, int hashIndex, Bucket& bucket);
 };
